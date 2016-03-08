@@ -14,7 +14,7 @@ Enter text:
 
 Configuration is stored in ~/.pomegranate.json. A default config will be written if it does not yet exist.
 
-```go
+```json
 {
     "Break": {
         "Duration": 5, 
