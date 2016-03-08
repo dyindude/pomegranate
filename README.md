@@ -1,2 +1,29 @@
 # pomegranate
-a pomodoro timer written in go, that keeps track of total cycle count, time spent, tec
+a pomodoro timer written in go, that keeps track of total cycle count, time spent, etc.
+
+This is my first golang project, please be kind :)
+
+example output (I used this to keep myself on track while packing up my apartment to move out):
+
+```
+pack    25m0s   16      6h40m0s 
+break   5m0s    14      1h10m0s 
+lbreak  30m0s   5       2h30m0s 
+Enter text:              
+```
+
+Configuration is stored in .pomegranate.json. A default config will be written if it does not yet exist.
+
+```go
+{
+    "Break": {
+        "Duration": 100, 
+        "Cycles": 0
+    },   
+    "Focus": {
+        "Duration": 10,
+        "Cycles": 0
+    }    
+}
+```
+The cycle count is written to the config every time a cycle completes.
