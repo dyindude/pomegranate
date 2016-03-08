@@ -12,18 +12,18 @@ lbreak  30m0s   5       2h30m0s
 Enter text:              
 ```
 
-Configuration is stored in .pomegranate.json. A default config will be written if it does not yet exist.
+Configuration is stored in ~/.pomegranate.json. A default config will be written if it does not yet exist.
 
 ```go
 {
     "Break": {
-        "Duration": 100, 
+        "Duration": 5, 
         "Cycles": 0
     },   
     "Focus": {
-        "Duration": 10,
+        "Duration": 25,
         "Cycles": 0
     }    
 }
 ```
-The cycle count is written to the config every time a cycle completes.
+Enter the name of a topic (currently case-sensitive) to start a cycle. The cycle count is written to the config every time a cycle completes.
