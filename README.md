@@ -27,3 +27,9 @@ Configuration is stored in ~/.pomegranate.json. A default config will be written
 }
 ```
 Enter the name of a topic (currently case-sensitive) to start a cycle. The cycle count is written to the config every time a cycle completes.
+
+Currently, the notification when a cycle completes is issuing an OSX "say" command to use the TTS engine for the announcement. I've also used the following for using mplayer to play a sound on linux:
+
+```go
+exec.Command("mplayer", "/path/to/filename.ogg").Output()
+```
