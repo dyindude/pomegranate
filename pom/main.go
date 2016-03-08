@@ -12,15 +12,15 @@ import (
     "io/ioutil"
 )
 
-func Pom(topic string, seconds time.Duration) {
+func Pom(topic string, minutes time.Duration) {
     ticker := time.NewTicker(time.Millisecond * 1000)
     start := time.Now()
     go func() {
         for range ticker.C {
-            fmt.Printf("\r%s %s/%s", topic, time.Since(start).String(), (time.Second * seconds).String())
+            fmt.Printf("\r%s %s/%s", topic, time.Since(start).String(), (time.Minute * minutes).String())
         }
     }()
-    time.Sleep(time.Second * seconds)
+    time.Sleep(time.Minute * minutes)
     ticker.Stop()
     exec.Command("say", fmt.Sprintf("Your %s has expired.", topic)).Output()
 }
@@ -37,7 +37,7 @@ func ConfigFile() string {
 }
 
 func InitConfig() map[string]*Topic {
-    var jsonString = "{\"Break\":{\"Duration\":100,\"Cycles\":0},\"Focus\":{\"Duration\":10,\"Cycles\":0}}"
+    var jsonString = "{\"Break\":{\"Duration\":5,\"Cycles\":0},\"Focus\":{\"Duration\":25,\"Cycles\":0}}"
     var m = make(map[string]*Topic)
     json.Unmarshal([]byte(jsonString),&m)
     WriteConfig(m)
@@ -73,7 +73,7 @@ func main() {
         var TopicsCopy = make(map[string]*Topic)
         json.Unmarshal(jsonString,&TopicsCopy)
         for key, value := range Topics {
-            fmt.Printf("%-8s%-8s%-8d%-8s\n", key,value.Duration * time.Second,value.Cycles,time.Duration(value.Duration * time.Duration(value.Cycles) * time.Second).String())
+            fmt.Printf("%-8s%-8s%-8d%-8s\n", key,value.Duration * time.Minute,value.Cycles,time.Duration(value.Duration * time.Duration(value.Cycles) * time.Minute).String())
         }
         
         reader := bufio.NewReader(os.Stdin)
