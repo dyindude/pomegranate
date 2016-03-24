@@ -15,13 +15,22 @@ import (
 func Pom(topic string, minutes time.Duration) {
     ticker := time.NewTicker(time.Millisecond * 1000)
     start := time.Now()
+        outfile := OutputFile()
     go func() {
         for range ticker.C {
             fmt.Printf("\r%s %s/%s", topic, time.Since(start).String(), (time.Minute * minutes).String())
+            e := ioutil.WriteFile(outfile,[]byte(topic + " " + time.Since(start).String() + "/" + (time.Minute * minutes).String()), 0644)
+            if e != nil {
+                panic(e)
+            }
         }
     }()
     time.Sleep(time.Minute * minutes)
     ticker.Stop()
+    e := ioutil.WriteFile(outfile,[]byte(topic + " DONE!"), 0644)
+    if e != nil {
+        panic(e)
+    }
     exec.Command("say", fmt.Sprintf("Your %s has expired.", topic)).Output()
 }
 
@@ -34,6 +43,12 @@ func ConfigFile() string {
     user,_ := user.Current()
     configfile := user.HomeDir + "/.pomegranate.json"
     return configfile
+}
+
+func OutputFile() string {
+    user,_ := user.Current()
+    outputfile := user.HomeDir + "/.pomegranate.out"
+    return outputfile
 }
 
 func InitConfig() map[string]*Topic {
